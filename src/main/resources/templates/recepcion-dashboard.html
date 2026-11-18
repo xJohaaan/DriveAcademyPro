@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Panel de recepción · DriveAcademy Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/neumorphism.css}">
+</head>
+<body class="role-recepcion">
+<div class="layout">
+
+    <aside class="neu-card sidebar">
+        <div class="brand">
+            <div class="brand-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/>
+                    <path d="M12 3v7M4.5 15.5l5.8-2.5M19.5 15.5l-5.8-2.5"/>
+                </svg>
+            </div>
+            <div>
+                <h1>DriveAcademy Pro</h1>
+                <p>Recepción</p>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a href="#resumen" class="active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                Resumen
+            </a>
+            <a href="#pagos">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                Pagos
+            </a>
+            <a href="#clases">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Clases prácticas
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="profile">
+                <div class="avatar" th:text="${usuario.iniciales}">LR</div>
+                <div class="profile-info">
+                    <strong th:text="${usuario.nombreCompleto}">Recepción</strong>
+                    <span sec:authentication="name">recepcion@driveacademy.com</span>
+                </div>
+            </div>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="neu-btn danger block">Cerrar sesión</button>
+            </form>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar" id="resumen">
+            <div>
+                <h2>Hola, <span th:text="${usuario.nombreCompleto}">Recepción</span></h2>
+                <p>Matrículas, recaudación y programación de clases</p>
+            </div>
+            <span class="badge role-recepcionista" th:text="${usuario.rol.etiqueta}">Recepcionista</span>
+        </header>
+
+        <div class="neu-alert success" th:if="${exito}" th:text="${exito}"></div>
+        <div class="neu-alert error" th:if="${error}" th:text="${error}"></div>
+
+        <section class="stats">
+            <div class="neu-card stat">
+                <div class="stat-label">Total recaudado</div>
+                <div class="stat-value accent" th:text="${'$' + #numbers.formatDecimal(totalRecaudado, 1, 'COMMA', 0, 'POINT')}">$0</div>
+            </div>
+            <div class="neu-card stat">
+                <div class="stat-label">Estudiantes inscritos</div>
+                <div class="stat-value" th:text="${totalEstudiantes}">0</div>
+            </div>
+            <div class="neu-card stat">
+                <div class="stat-label">Instructores</div>
+                <div class="stat-value" th:text="${totalInstructores}">0</div>
+            </div>
+            <div class="neu-card stat">
+                <div class="stat-label">Vehículos disponibles</div>
+                <div class="stat-value" th:text="${totalVehiculosDisponibles}">0</div>
+            </div>
+        </section>
+
+        <div class="two-cols">
+            <section class="neu-card">
+                <div class="section-title">
+                    <h3>Registrar pago / paquete</h3>
+                    <span>Matrícula y horas prácticas</span>
+                </div>
+                <form th:action="@{/recepcion/pagos/guardar}" method="post" class="form-grid">
+                    <div class="form-group">
+                        <label for="pagoEstudiante">Estudiante</label>
+                        <select class="neu-input" id="pagoEstudiante" name="estudianteId" required>
+                            <option th:each="e : ${estudiantes}" th:value="${e.id}" th:text="${e.nombreCompleto + ' (' + e.email + ')'}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="concepto">Concepto</label>
+                        <input class="neu-input" type="text" id="concepto" name="concepto" placeholder="Paquete 10 horas B1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="monto">Monto ($)</label>
+                        <input class="neu-input" type="number" step="0.01" min="1" id="monto" name="monto" placeholder="450000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="horasIncluidas">Horas incluidas</label>
+                        <input class="neu-input" type="number" min="1" id="horasIncluidas" name="horasIncluidas" placeholder="10" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="neu-btn primary block">Registrar pago</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="neu-card">
+                <div class="section-title">
+                    <h3>Asignar clase práctica</h3>
+                    <span>Validación de disponibilidad</span>
+                </div>
+                <form th:action="@{/recepcion/clases/asignar}" method="post" class="form-grid">
+                    <div class="form-group">
+                        <label for="claseEstudiante">Estudiante</label>
+                        <select class="neu-input" id="claseEstudiante" name="estudianteId" required>
+                            <option th:each="e : ${estudiantes}" th:value="${e.id}" th:text="${e.nombreCompleto}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="claseInstructor">Instructor</label>
+                        <select class="neu-input" id="claseInstructor" name="instructorId" required>
+                            <option th:each="i : ${instructores}" th:value="${i.id}" th:text="${i.nombreCompleto}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="claseVehiculo">Vehículo disponible</label>
+                        <select class="neu-input" id="claseVehiculo" name="vehiculoId" required>
+                            <option th:each="v : ${vehiculosDisponibles}" th:value="${v.id}"
+                                    th:text="${v.marca + ' ' + v.modelo + ' (' + v.placa + ' · ' + v.tipoCaja + ')'}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaHora">Fecha y hora</label>
+                        <input class="neu-input" type="datetime-local" id="fechaHora" name="fechaHora" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tema">Tema de la clase</label>
+                        <input class="neu-input" type="text" id="tema" name="tema" placeholder="Parqueo en reversa y glorieta" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="neu-btn primary block">Asignar clase</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <section class="neu-card" id="pagos">
+            <div class="section-title">
+                <h3>Historial de pagos</h3>
+                <span th:text="${#lists.size(pagos)} + ' registros'">0 registros</span>
+            </div>
+            <div class="neu-inset table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Estudiante</th>
+                        <th>Concepto</th>
+                        <th>Horas</th>
+                        <th>Monto</th>
+                        <th>Registrado por</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${pagos}">
+                        <td th:text="${#temporals.format(p.fechaPago, 'dd/MM/yyyy HH:mm')}">Fecha</td>
+                        <td th:text="${p.estudiante.nombreCompleto}">Estudiante</td>
+                        <td th:text="${p.concepto}">Concepto</td>
+                        <td th:text="${p.horasIncluidas + ' h'}">10 h</td>
+                        <td th:text="${'$' + #numbers.formatDecimal(p.monto, 1, 'COMMA', 0, 'POINT')}">$0</td>
+                        <td th:text="${p.registradoPor.nombreCompleto}">Recepción</td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(pagos)}">
+                        <td colspan="6" class="empty">Aún no hay pagos registrados.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="neu-card" id="clases">
+            <div class="section-title">
+                <h3>Clases programadas</h3>
+                <span th:text="${#lists.size(clases)} + ' en total'">0 en total</span>
+            </div>
+            <div class="neu-inset table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Fecha y hora</th>
+                        <th>Estudiante</th>
+                        <th>Instructor</th>
+                        <th>Vehículo</th>
+                        <th>Tema</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="c : ${clases}">
+                        <td th:text="${#temporals.format(c.fechaHora, 'dd/MM/yyyy HH:mm')}">Fecha</td>
+                        <td th:text="${c.estudiante.nombreCompleto}">Estudiante</td>
+                        <td th:text="${c.instructor.nombreCompleto}">Instructor</td>
+                        <td th:text="${c.vehiculo.placa + ' · ' + c.vehiculo.marca}">DAP-101</td>
+                        <td th:text="${c.tema}">Tema</td>
+                        <td>
+                            <span class="status-pill"
+                                  th:classappend="${c.estado == 'COMPLETADA'} ? 'ok' : (${c.estado == 'CANCELADA'} ? 'err' : 'info')"
+                                  th:text="${c.estado}">PROGRAMADA</span>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(clases)}">
+                        <td colspan="6" class="empty">Aún no hay clases registradas.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

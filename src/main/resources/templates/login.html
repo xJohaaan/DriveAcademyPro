@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Iniciar sesión · DriveAcademy Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/neumorphism.css}">
+</head>
+<body>
+<main class="auth-wrapper">
+    <section class="neu-card auth-card">
+
+        <div class="brand">
+            <div class="brand-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/>
+                    <path d="M12 3v7M4.5 15.5l5.8-2.5M19.5 15.5l-5.8-2.5"/>
+                </svg>
+            </div>
+            <div>
+                <h1>DriveAcademy Pro</h1>
+                <p>Inicia sesión para continuar</p>
+            </div>
+        </div>
+
+        <div class="neu-alert error" th:if="${param.error}">Email o contraseña incorrectos.</div>
+        <div class="neu-alert success" th:if="${param.logout}">Has cerrado sesión correctamente.</div>
+        <div class="neu-alert success" th:if="${param.registrado}">Cuenta creada. Ya puedes iniciar sesión.</div>
+
+        <form id="login-form" th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="neu-input" type="email" id="email" name="email"
+                       placeholder="tu@email.com" autocomplete="username" required autofocus>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input class="neu-input" type="password" id="password" name="password"
+                       placeholder="••••••" autocomplete="current-password" required>
+            </div>
+            <button type="submit" class="neu-btn primary block">Iniciar sesión</button>
+        </form>
+
+        <div class="divider">Acceso rápido de prueba</div>
+
+        <div class="quick-grid">
+            <button type="button" class="neu-btn quick-btn"
+                    data-demo-email="admin@driveacademy.com" data-accent="#8b5cf6">
+                <span class="dot" style="background:#8b5cf6"></span> Admin
+            </button>
+            <button type="button" class="neu-btn quick-btn"
+                    data-demo-email="instructor@driveacademy.com" data-accent="#10b981">
+                <span class="dot" style="background:#10b981"></span> Instructor
+            </button>
+            <button type="button" class="neu-btn quick-btn"
+                    data-demo-email="recepcion@driveacademy.com" data-accent="#f59e0b">
+                <span class="dot" style="background:#f59e0b"></span> Recepción
+            </button>
+            <button type="button" class="neu-btn quick-btn"
+                    data-demo-email="estudiante@driveacademy.com" data-accent="#38bdf8">
+                <span class="dot" style="background:#38bdf8"></span> Estudiante
+            </button>
+        </div>
+        <p class="auth-footer" style="margin-top:14px;font-size:12px">
+            Un clic rellena los datos · doble clic entra directamente
+        </p>
+
+        <p class="auth-footer">
+            ¿Eres nuevo? <a th:href="@{/registro}">Crea tu cuenta de estudiante</a>
+        </p>
+    </section>
+</main>
+<script th:src="@{/js/login.js}"></script>
+</body>
+</html>

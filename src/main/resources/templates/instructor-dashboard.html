@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Panel del instructor · DriveAcademy Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/neumorphism.css}">
+</head>
+<body class="role-instructor">
+<div class="layout">
+
+    <aside class="neu-card sidebar">
+        <div class="brand">
+            <div class="brand-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/>
+                    <path d="M12 3v7M4.5 15.5l5.8-2.5M19.5 15.5l-5.8-2.5"/>
+                </svg>
+            </div>
+            <div>
+                <h1>DriveAcademy Pro</h1>
+                <p>Instructores</p>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <a href="#resumen" class="active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                Resumen
+            </a>
+            <a href="#mis-clases">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                Mis clases
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="profile">
+                <div class="avatar" th:text="${usuario.iniciales}">CI</div>
+                <div class="profile-info">
+                    <strong th:text="${usuario.nombreCompleto}">Instructor</strong>
+                    <span sec:authentication="name">instructor@driveacademy.com</span>
+                </div>
+            </div>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="neu-btn danger block">Cerrar sesión</button>
+            </form>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar" id="resumen">
+            <div>
+                <h2>Hola, <span th:text="${usuario.nombreCompleto}">Instructor</span></h2>
+                <p>Agenda de clases prácticas y evaluaciones</p>
+            </div>
+            <span class="badge role-instructor" th:text="${usuario.rol.etiqueta}">Instructor</span>
+        </header>
+
+        <div class="neu-alert success" th:if="${exito}" th:text="${exito}"></div>
+        <div class="neu-alert error" th:if="${error}" th:text="${error}"></div>
+
+        <section class="stats">
+            <div class="neu-card stat">
+                <div class="stat-label">Tu categoría</div>
+                <div class="stat-value accent"
+                     th:text="${usuario.licenciaCategoria != null ? usuario.licenciaCategoria : '—'}">C1</div>
+                <div class="stat-hint">Licencia que enseñas</div>
+            </div>
+            <div class="neu-card stat">
+                <div class="stat-label">Clases programadas</div>
+                <div class="stat-value" th:text="${clasesProgramadas}">0</div>
+            </div>
+            <div class="neu-card stat">
+                <div class="stat-label">Clases completadas</div>
+                <div class="stat-value" th:text="${clasesCompletadas}">0</div>
+            </div>
+            <div class="neu-card stat">
+                <div class="stat-label">Estudiantes en la academia</div>
+                <div class="stat-value" th:text="${totalEstudiantes}">0</div>
+            </div>
+        </section>
+
+        <section class="neu-card" id="mis-clases">
+            <div class="section-title">
+                <h3>Clases asignadas</h3>
+                <span th:text="${#lists.size(misClases)} + ' clases'">0 clases</span>
+            </div>
+            <div class="neu-inset table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Fecha y hora</th>
+                        <th>Estudiante</th>
+                        <th>Vehículo</th>
+                        <th>Tema</th>
+                        <th>Estado</th>
+                        <th>Evaluación</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="c : ${misClases}">
+                        <td th:text="${#temporals.format(c.fechaHora, 'dd/MM/yyyy HH:mm')}">Fecha</td>
+                        <td th:text="${c.estudiante.nombreCompleto}">Estudiante</td>
+                        <td th:text="${c.vehiculo.placa + ' · ' + c.vehiculo.marca + ' ' + c.vehiculo.modelo}">Vehículo</td>
+                        <td th:text="${c.tema}">Tema</td>
+                        <td>
+                            <span class="status-pill"
+                                  th:classappend="${c.estado == 'COMPLETADA'} ? 'ok' : (${c.estado == 'CANCELADA'} ? 'err' : 'info')"
+                                  th:text="${c.estado}">PROGRAMADA</span>
+                        </td>
+                        <td>
+                            <form th:if="${c.estado == 'PROGRAMADA'}"
+                                  th:action="@{/instructor/clases/{id}/calificar(id=${c.id})}"
+                                  method="post" class="inline-form">
+                                <select class="neu-input" name="calificacion" required style="width:90px">
+                                    <option value="5">5 ★</option>
+                                    <option value="4">4 ★</option>
+                                    <option value="3">3 ★</option>
+                                    <option value="2">2 ★</option>
+                                    <option value="1">1 ★</option>
+                                </select>
+                                <input class="neu-input" type="text" name="observaciones"
+                                       placeholder="Observaciones..." style="width:180px">
+                                <button type="submit" class="neu-btn primary sm">Completar</button>
+                            </form>
+                            <div th:if="${c.estado == 'COMPLETADA'}">
+                                <strong th:text="${c.calificacion + ' / 5 ★'}">5 / 5 ★</strong>
+                                <div class="muted" style="font-size:12px"
+                                     th:text="${c.observaciones != null && !c.observaciones.isEmpty() ? c.observaciones : 'Sin observaciones'}"></div>
+                            </div>
+                            <span th:if="${c.estado == 'CANCELADA'}" class="muted">Cancelada</span>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(misClases)}">
+                        <td colspan="6" class="empty">Aún no tienes clases asignadas.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

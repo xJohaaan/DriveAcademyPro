@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registro · DriveAcademy Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/neumorphism.css}">
+</head>
+<body class="role-estudiante">
+<main class="auth-wrapper">
+    <section class="neu-card auth-card">
+
+        <div class="brand">
+            <div class="brand-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                    <path d="M19 8v6M22 11h-6"/>
+                </svg>
+            </div>
+            <div>
+                <h1>Crear cuenta</h1>
+                <p>Registro de nuevos estudiantes</p>
+            </div>
+        </div>
+
+        <div class="neu-alert error" th:if="${error}" th:text="${error}"></div>
+
+        <form th:action="@{/registro}" method="post">
+            <div class="form-group">
+                <label for="nombreCompleto">Nombre completo</label>
+                <input class="neu-input" type="text" id="nombreCompleto" name="nombreCompleto"
+                       th:value="${nombreCompleto}" placeholder="Ej: María Fernanda López"
+                       autocomplete="name" required minlength="3" maxlength="120">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="neu-input" type="email" id="email" name="email"
+                       th:value="${email}" placeholder="tu@email.com"
+                       autocomplete="email" required maxlength="120">
+            </div>
+            <div class="form-group">
+                <label for="licenciaCategoria">Categoría de licencia que vas a tramitar</label>
+                <select class="neu-input" id="licenciaCategoria" name="licenciaCategoria">
+                    <option value="">Aún no lo sé</option>
+                    <option th:each="cat : ${categorias}" th:value="${cat}" th:text="${cat}"
+                            th:selected="${cat == licenciaCategoria}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input class="neu-input" type="password" id="password" name="password"
+                       placeholder="Mínimo 6 caracteres" autocomplete="new-password" required minlength="6">
+            </div>
+            <button type="submit" class="neu-btn primary block">Registrarme</button>
+        </form>
+
+        <p class="auth-footer">
+            ¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión</a>
+        </p>
+    </section>
+</main>
+</body>
+</html>

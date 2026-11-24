@@ -57,6 +57,10 @@ class AutenticacionTests {
 
     @Test
     void paginasPublicasCargan() throws Exception {
+        mvc.perform(get("/")).andExpect(status().isOk())
+                .andExpect(content().string(containsString("¡Toma las riendas de la vía!")))
+                .andExpect(content().string(containsString("Iniciar sesión")))
+                .andExpect(content().string(containsString("/login")));
         mvc.perform(get("/login")).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Acceso rápido de prueba")));
         mvc.perform(get("/registro")).andExpect(status().isOk())

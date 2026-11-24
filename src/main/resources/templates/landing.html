@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DriveAcademy Pro · Escuela de conducción</title>
+    <meta name="description" content="Aprende a conducir con formación teórica y práctica. Agenda tus clases, sigue tu proceso y obtén tu licencia con DriveAcademy Pro.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/neumorphism.css}">
+</head>
+<body class="landing-page">
+
+<header class="landing-header">
+    <a class="landing-brand" th:href="@{/}" aria-label="Ir al inicio">
+        <span class="brand-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/>
+                <path d="M12 3v7M4.5 15.5l5.8-2.5M19.5 15.5l-5.8-2.5"/>
+            </svg>
+        </span>
+        <span>
+            <strong>DriveAcademy <em>Pro</em></strong>
+            <small>Escuela de conducción</small>
+        </span>
+    </a>
+
+    <nav class="landing-nav" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#servicios">Cursos</a>
+        <a href="#licencias">Licencias</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <div class="header-actions">
+        <a class="neu-btn sm" th:href="@{/registro}">Crear cuenta</a>
+        <a class="neu-btn primary sm" th:href="@{/login}">Iniciar sesión</a>
+    </div>
+</header>
+
+<main class="landing-main">
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div class="hero-copy">
+            <span class="badge">Centro de enseñanza automovilística</span>
+            <h1>¡Toma las riendas de la vía! <span>Aprende a conducir ahora.</span></h1>
+            <p class="hero-lead">
+                Formación teórica y práctica para motocicletas, automóviles livianos y pesados.
+                Agenda tus clases, sigue tu proceso y llega listo para tu licencia.
+            </p>
+
+            <div class="hero-actions">
+                <a class="neu-btn primary hero-btn" th:href="@{/login}">
+                    Iniciar sesión
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M13 6l6 6-6 6"/>
+                    </svg>
+                </a>
+                <a class="neu-btn hero-btn" th:href="@{/registro}">Quiero inscribirme</a>
+            </div>
+
+            <div class="hero-points">
+                <span class="neu-card mini-point">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                    Clases teóricas y prácticas
+                </span>
+                <span class="neu-card mini-point">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                    Instructores certificados
+                </span>
+                <span class="neu-card mini-point">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                    Agenda desde tu panel
+                </span>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="neu-card hero-art">
+                <svg viewBox="0 0 520 390" role="img" aria-label="Ilustración de un automóvil en una carretera">
+                    <defs>
+                        <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#dbeafe"/>
+                            <stop offset="100%" stop-color="#f8fafc"/>
+                        </linearGradient>
+                        <linearGradient id="carroceria" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#3b82f6"/>
+                            <stop offset="100%" stop-color="#1d4ed8"/>
+                        </linearGradient>
+                        <linearGradient id="carretera" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#64748b"/>
+                            <stop offset="100%" stop-color="#334155"/>
+                        </linearGradient>
+                        <filter id="brillo" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="10"/>
+                        </filter>
+                    </defs>
+
+                    <rect x="0" y="0" width="520" height="390" rx="28" fill="url(#cielo)"/>
+                    <circle cx="418" cy="78" r="38" fill="#fbbf24" opacity="0.22" filter="url(#brillo)"/>
+                    <circle cx="418" cy="78" r="26" fill="#fbbf24"/>
+                    <g fill="#ffffff" opacity="0.85">
+                        <ellipse cx="92" cy="78" rx="38" ry="15"/>
+                        <ellipse cx="126" cy="68" rx="28" ry="18"/>
+                        <ellipse cx="230" cy="48" rx="32" ry="13"/>
+                        <ellipse cx="260" cy="42" rx="22" ry="15"/>
+                    </g>
+                    <path d="M0 270 Q110 205 220 268 T520 250 V390 H0Z" fill="#bbf7d0"/>
+                    <path d="M0 300 Q140 245 270 300 T520 285 V390 H0Z" fill="#86efac" opacity="0.65"/>
+
+                    <path d="M188 390 L232 250 H288 L332 390Z" fill="url(#carretera)"/>
+                    <path d="M260 258 L260 276 M260 292 L260 314 M260 330 L260 358 M260 374 L260 388"
+                          stroke="#f8fafc" stroke-width="6" stroke-linecap="round" stroke-dasharray="14 12"/>
+
+                    <g transform="translate(118 168)">
+                        <ellipse cx="142" cy="196" rx="128" ry="16" fill="#0f172a" opacity="0.12"/>
+                        <path d="M18 150 C26 120 46 108 76 104 L104 70 C114 58 128 52 144 52 H210 C228 52 242 60 252 74 L276 106 C302 112 318 128 322 154 L326 176 C328 190 318 198 304 198 H36 C22 198 12 190 14 176Z"
+                              fill="url(#carroceria)"/>
+                        <path d="M104 104 L124 76 C130 68 138 64 148 64 H184 V104Z" fill="#bfdbfe" opacity="0.95"/>
+                        <path d="M196 64 H210 C224 64 234 70 242 80 L262 104 H196Z" fill="#bfdbfe" opacity="0.95"/>
+                        <rect x="14" y="142" width="312" height="20" rx="10" fill="#1e40af" opacity="0.45"/>
+                        <circle cx="84" cy="198" r="30" fill="#0f172a"/>
+                        <circle cx="84" cy="198" r="15" fill="#cbd5e1"/>
+                        <circle cx="256" cy="198" r="30" fill="#0f172a"/>
+                        <circle cx="256" cy="198" r="15" fill="#cbd5e1"/>
+                        <rect x="312" y="128" width="18" height="26" rx="8" fill="#fde68a"/>
+                        <rect x="6" y="130" width="16" height="22" rx="7" fill="#fecaca"/>
+                    </g>
+
+                    <g transform="translate(28 292)">
+                        <circle cx="34" cy="34" r="30" fill="#ffffff" opacity="0.9"/>
+                        <circle cx="34" cy="34" r="19" fill="none" stroke="#2563eb" stroke-width="4"/>
+                        <circle cx="34" cy="34" r="5" fill="#2563eb"/>
+                        <path d="M34 15v14M15 34h14M44 49l11 11M49 19L38 30" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+                    </g>
+                </svg>
+
+                <div class="float-chip chip-top neu-card">
+                    <span class="chip-dot" style="background:#10b981"></span>
+                    Clases prácticas
+                </div>
+                <div class="float-chip chip-bottom neu-card">
+                    <span class="chip-dot" style="background:#f59e0b"></span>
+                    Tu licencia, más cerca
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FRANJA DE CONFIANZA -->
+    <section class="trust-strip" aria-label="Ventajas de DriveAcademy Pro">
+        <div class="neu-card trust-item"><strong>+17</strong><span>años de experiencia</span></div>
+        <div class="neu-card trust-item"><strong>+1.500</strong><span>conductores formados</span></div>
+        <div class="neu-card trust-item"><strong>98%</strong><span>pruebas aprobadas</span></div>
+        <div class="neu-card trust-item"><strong>24/7</strong><span>agenda en línea</span></div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="landing-section" id="servicios">
+        <div class="section-heading">
+            <div>
+                <span class="badge">Lo que hacemos</span>
+                <h2>Todo lo que necesitas para <span class="accent">aprender a conducir</span></h2>
+            </div>
+            <p>Un solo lugar para tu formación, trámites y acompañamiento antes, durante y después del curso.</p>
+        </div>
+
+        <div class="service-grid">
+            <article class="neu-card service-card">
+                <div class="service-icon icon-blue">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l2-5h14l2 5M5 13h14v5H5z"/><circle cx="7.5" cy="18" r="1.5"/><circle cx="16.5" cy="18" r="1.5"/></svg>
+                </div>
+                <h3>Cursos de conducción</h3>
+                <p>Teoría, taller y práctica con instructores que te acompañan en cada maniobra.</p>
+            </article>
+            <article class="neu-card service-card">
+                <div class="service-icon icon-amber">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
+                </div>
+                <h3>Convenios empresariales</h3>
+                <p>Formación para equipos de trabajo y renovación de licencias de tu personal.</p>
+            </article>
+            <article class="neu-card service-card">
+                <div class="service-icon icon-emerald">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                </div>
+                <h3>Servicios corporativos</h3>
+                <p>Capacitaciones PESV, evaluaciones y asesoría en normatividad de tránsito.</p>
+            </article>
+            <article class="neu-card service-card">
+                <div class="service-icon icon-violet">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M8 17h8M5 14l2-6h6l3 6M11 8V5h4"/></svg>
+                </div>
+                <h3>Motos y CDA</h3>
+                <p>Entrena para las categorías A1 y A2 y gestiona la revisión técnico mecánica.</p>
+            </article>
+            <article class="neu-card service-card">
+                <div class="service-icon icon-rose">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v13H4z"/><path d="M8 7V4h8v3M8 12h8M8 16h5"/></svg>
+                </div>
+                <h3>Renovación y duplicados</h3>
+                <p>Te guiamos en el proceso de renovación, duplicado y expedición de licencia.</p>
+            </article>
+            <article class="neu-card service-card">
+                <div class="service-icon icon-sky">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                </div>
+                <h3>Exámenes médicos</h3>
+                <p>Coordinamos tus exámenes de reconocimiento de conductores en un solo lugar.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- LICENCIAS -->
+    <section class="licencias-band" id="licencias">
+        <div class="licencias-copy">
+            <span class="badge">Licencias de conducción</span>
+            <h2>Elige tu categoría, <span class="accent">nosotros te preparamos</span></h2>
+            <p>Cada curso incluye exámenes médicos, clases teóricas, de taller y prácticas, derechos de tránsito y acompañamiento en tu licencia.</p>
+            <a class="neu-btn primary" th:href="@{/registro}">Inscribirme en un curso</a>
+        </div>
+        <div class="license-grid" aria-label="Categorías de licencia">
+            <span class="license-chip neu-card">A1</span>
+            <span class="license-chip neu-card">A2</span>
+            <span class="license-chip neu-card">B1</span>
+            <span class="license-chip neu-card">B2</span>
+            <span class="license-chip neu-card">B3</span>
+            <span class="license-chip neu-card">C1</span>
+            <span class="license-chip neu-card">C2</span>
+            <span class="license-chip neu-card">C3</span>
+        </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="landing-section" id="proceso">
+        <div class="section-heading">
+            <div>
+                <span class="badge">¿Cómo es el proceso?</span>
+                <h2>Tres pasos para <span class="accent">obtener tu licencia</span></h2>
+            </div>
+            <p>Desde tu primer ingreso hasta la entrega de tu licencia, todo queda organizado en tu cuenta.</p>
+        </div>
+
+        <div class="steps-grid">
+            <article class="neu-card step-card">
+                <span class="step-number">01</span>
+                <h3>Regístrate y elige tu curso</h3>
+                <p>Crea tu cuenta de estudiante, selecciona la categoría de licencia y conoce tu plan de formación.</p>
+            </article>
+            <article class="neu-card step-card">
+                <span class="step-number">02</span>
+                <h3>Cumple tus horas teóricas y prácticas</h3>
+                <p>Agenda tus clases, revisa tu progreso y recibe la guía de tus instructores en cada sesión.</p>
+            </article>
+            <article class="neu-card step-card">
+                <span class="step-number">03</span>
+                <h3>Presenta tus exámenes</h3>
+                <p>Completa los exámenes médicos y de conducción. Nosotros te acompañamos en el último paso.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- FINANCIACIÓN -->
+    <section class="finance-section">
+        <div class="neu-card finance-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20M6 15h4"/>
+            </svg>
+        </div>
+        <div class="finance-copy">
+            <span class="badge">Financiamos tu licencia</span>
+            <h2>Estudia ahora, paga a tu ritmo</h2>
+            <p>Consulta las opciones de financiación con tarjetas débito y crédito y convenios disponibles para ti.</p>
+            <div class="finance-tags">
+                <span class="neu-card">Débito</span>
+                <span class="neu-card">Crédito</span>
+                <span class="neu-card">Convenios</span>
+            </div>
+        </div>
+        <a class="neu-btn primary" href="#contacto">Solicitar información</a>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section class="landing-section" id="testimonios">
+        <div class="section-heading">
+            <div>
+                <span class="badge">Lo que dicen nuestros estudiantes</span>
+                <h2>Historias que <span class="accent">se ponen en marcha</span></h2>
+            </div>
+        </div>
+        <div class="testimonial-grid">
+            <blockquote class="neu-card testimonial">
+                <p>“El proceso fue muy ágil y pude escoger los horarios de mis clases según mi disponibilidad.”</p>
+                <footer><strong>María G.</strong><span>Estudiante categoría B1</span></footer>
+            </blockquote>
+            <blockquote class="neu-card testimonial">
+                <p>“Los instructores me ayudaron a corregir los detalles que me faltaban. Salí muy seguro a la vía.”</p>
+                <footer><strong>Juan D.</strong><span>Estudiante categoría A2</span></footer>
+            </blockquote>
+            <blockquote class="neu-card testimonial">
+                <p>“Desde el primer día se siente un ambiente muy amable. Todo el proceso de la licencia fue claro.”</p>
+                <footer><strong>Sofía R.</strong><span>Estudiante categoría B2</span></footer>
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- CONTACTO / CTA FINAL -->
+    <section class="cta-section" id="contacto">
+        <div class="neu-card cta-card">
+            <div>
+                <span class="badge">¿Listo para comenzar?</span>
+                <h2>Tu próxima clase empieza con un clic</h2>
+                <p>Ingresa a tu cuenta para agendar, consultar tus clases y seguir tu proceso. ¿Aún no tienes cuenta? Regístrate como estudiante.</p>
+            </div>
+            <div class="cta-actions">
+                <a class="neu-btn primary" th:href="@{/login}">Iniciar sesión</a>
+                <a class="neu-btn" th:href="@{/registro}">Crear cuenta de estudiante</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="landing-footer">
+    <div class="footer-brand">
+        <span class="brand-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/>
+                <path d="M12 3v7M4.5 15.5l5.8-2.5M19.5 15.5l-5.8-2.5"/>
+            </svg>
+        </span>
+        <span><strong>DriveAcademy Pro</strong><small>Escuela de conducción</small></span>
+    </div>
+    <p>Formando conductores seguros, una clase a la vez.</p>
+    <nav aria-label="Enlaces del pie de página">
+        <a th:href="@{/login}">Iniciar sesión</a>
+        <a th:href="@{/registro}">Registro</a>
+        <a href="#servicios">Cursos</a>
+    </nav>
+    <small>© <span th:text="${#dates.year(#dates.createNow())}">2026</span> DriveAcademy Pro. Todos los derechos reservados.</small>
+</footer>
+
+</body>
+</html>

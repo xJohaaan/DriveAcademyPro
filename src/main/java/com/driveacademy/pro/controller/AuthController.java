@@ -36,7 +36,7 @@ public class AuthController {
 
     @GetMapping("/")
     public String inicio() {
-        return "redirect:/login";
+        return "landing";
     }
 
     @GetMapping("/login")
